@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
 using CardsTable.Settings;
-using CardsTable.State;
+using CardsTable.Gameplay.State;
 using UnityEngine;
 using UnityEngine.Assertions;
 using VContainer.Unity;
 
-namespace CardsTable
+namespace CardsTable.Gameplay
 {
-    public class GameController : ITickable
+    public class GameplayController : ITickable
     {
         private readonly SessionSettings sessionSettings;
         private readonly GameplayState gameState;
@@ -18,7 +17,7 @@ namespace CardsTable
         private readonly PlayersCollection players = new();
         private Table table;
 
-        public GameController(Table.Factory tableFactory, Func<Deck> deckFactory,
+        public GameplayController(Table.Factory tableFactory, Func<Deck> deckFactory,
             GameplayState gameState, SessionSettings sessionSettings)
         {
             this.sessionSettings = sessionSettings;
@@ -50,6 +49,11 @@ namespace CardsTable
 
             var tableSettings = sessionSettings.TableSettings[playersCount];
             table = tableFactory.Create(tableSettings, players, deck);
+        }
+
+        public void EndGame()
+        {
+            gameState.isGameStarted = false;
         }
 
         public void PlayTurn()

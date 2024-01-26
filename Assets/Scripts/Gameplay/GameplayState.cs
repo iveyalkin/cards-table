@@ -1,4 +1,4 @@
-namespace CardsTable.State
+namespace CardsTable.Gameplay.State
 {
     public class GameplayState
     {

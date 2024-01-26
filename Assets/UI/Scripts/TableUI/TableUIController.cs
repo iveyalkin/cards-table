@@ -1,5 +1,5 @@
 using System;
-using  UnityEngine.SceneManagement;
+using CardsTable.Gameplay.Mode;
 using VContainer.Unity;
 
 namespace CardsTable.UI.TableUI
@@ -7,10 +7,12 @@ namespace CardsTable.UI.TableUI
     public class TableUIController : IInitializable, IDisposable
     {
         private readonly TableUIView view;
+        private readonly GameplayModeLoader gameplayModeLoader;
 
-        public TableUIController(TableUIView view)
+        public TableUIController(TableUIView view, GameplayModeLoader gameplayModeLoader)
         {
             this.view = view;
+            this.gameplayModeLoader = gameplayModeLoader;
         }
 
         void IInitializable.Initialize()
@@ -41,13 +43,12 @@ namespace CardsTable.UI.TableUI
 
         private void RestartTable()
         {
-            SceneManager.UnloadSceneAsync("Table");
-            SceneManager.LoadScene("Table", LoadSceneMode.Additive);
+            gameplayModeLoader.RestartGameplayMode();
         }
 
         private void QuitTable()
         {
-            SceneManager.UnloadSceneAsync("Table");
+           gameplayModeLoader.UnloadGameplayMode();
         }
     }
 }
