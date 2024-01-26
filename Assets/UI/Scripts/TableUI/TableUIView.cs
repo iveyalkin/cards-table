@@ -51,6 +51,8 @@ namespace CardsTable.UI.TableUI
             restartButton = pauseMenu.Q<Button>("restart-table");
             resumeButton = pauseMenu.Q<Button>("resume-table");
             quitButton = pauseMenu.Q<Button>("quit-table");
+
+            ClosePauseMenu();
         }
 
         public void OpenPauseMenu()

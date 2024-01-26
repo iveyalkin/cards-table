@@ -1,4 +1,5 @@
 using System;
+using  UnityEngine.SceneManagement;
 using VContainer.Unity;
 
 namespace CardsTable.UI.TableUI
@@ -40,12 +41,13 @@ namespace CardsTable.UI.TableUI
 
         private void RestartTable()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Table");
+            SceneManager.UnloadSceneAsync("Table");
+            SceneManager.LoadScene("Table", LoadSceneMode.Additive);
         }
 
         private void QuitTable()
         {
-            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Table");
+            SceneManager.UnloadSceneAsync("Table");
         }
     }
 }

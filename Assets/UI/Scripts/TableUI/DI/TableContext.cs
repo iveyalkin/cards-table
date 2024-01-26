@@ -9,8 +9,11 @@ namespace CardsTable.UI.TableUI.DI
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponentInHierarchy<UIDocument>();
-            builder.RegisterEntryPoint<TableUIView>(Lifetime.Scoped);
-            builder.RegisterEntryPoint<TableUIController>(Lifetime.Scoped);
+
+            builder.Register<TableUIView>(Lifetime.Singleton)
+                .AsImplementedInterfaces()
+                .AsSelf();
+            builder.RegisterEntryPoint<TableUIController>(Lifetime.Singleton);
         }
     }
 }
