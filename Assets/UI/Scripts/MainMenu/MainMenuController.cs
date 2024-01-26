@@ -1,23 +1,31 @@
-using UnityEngine.UIElements;
+using System;
 using VContainer.Unity;
 
 namespace CardsTable.UI.MainMenu
 {
-    public class MainMenuController : IInitializable
+    public class MainMenuController : IInitializable, IDisposable
     {
-        private readonly UIDocument document;
+        private readonly MainMenuView view;
 
-        public MainMenuController(UIDocument document)
+        public MainMenuController(MainMenuView view)
         {
-            this.document = document;
+            this.view = view;
         }
 
         void IInitializable.Initialize()
         {
-            document.rootVisualElement.Q<Button>("choose-game-mode").clicked += () =>
-            {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Table", UnityEngine.SceneManagement.LoadSceneMode.Additive);
-            };
+            view.OnChooseGameModeButtonClicked += OnChooseGameModeButtonClicked;
+        }
+
+        void IDisposable.Dispose()
+        {
+            view.OnChooseGameModeButtonClicked -= OnChooseGameModeButtonClicked;
+        }
+
+        private void OnChooseGameModeButtonClicked()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Table", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            view.Hide();
         }
     }
 }

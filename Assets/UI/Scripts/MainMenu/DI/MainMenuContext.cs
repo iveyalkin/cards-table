@@ -9,7 +9,10 @@ namespace CardsTable.UI.MainMenu.DI
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponentInHierarchy<UIDocument>();
-            builder.RegisterEntryPoint<MainMenuController>(Lifetime.Scoped);
+            builder.Register<MainMenuView>(Lifetime.Singleton)
+                .AsImplementedInterfaces()
+                .AsSelf();
+            builder.RegisterEntryPoint<MainMenuController>(Lifetime.Singleton);
         }
     }
 }
