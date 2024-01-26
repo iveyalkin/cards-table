@@ -14,7 +14,7 @@
 - Design Patterns
 
 ### Infrastructure
-- commit history
+- Working with git & commit history
 - CI build pipeline
 
 ## Copyrights:
