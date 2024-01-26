@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="TableMenu" src="project://database/Assets/UI/Scripts/TableUI/TableMenu.uxml?fileID=9197481963319205126&amp;guid=41b48a477adf1ce4a8104f0b00bc4222&amp;type=3#TableMenu" />
+    <ui:VisualElement style="flex-grow: 1; height: auto;">
+        <ui:Button text="Menu" name="open-pause-menu" style="-unity-text-align: middle-left; width: 60px;" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; height: 95%;">
+        <ui:VisualElement style="flex-grow: 1; height: 15%;">
+            <ui:Label text="player_3" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; height: 15%; flex-direction: row;">
+            <ui:VisualElement style="flex-grow: 1; height: 15%;">
+                <ui:Label text="player_2" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1;">
+                <ui:Label text="table" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; height: 15%;">
+                <ui:Label text="player_4" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; height: 15%;">
+            <ui:Label text="player_1" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Instance template="TableMenu" name="pause-menu" style="position: absolute;" />
+</ui:UXML>

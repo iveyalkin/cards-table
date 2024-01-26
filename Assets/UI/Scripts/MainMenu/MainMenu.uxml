@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center;">
+        <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center; align-self: center; position: absolute;">
+            <ui:Label text="Cards Table" style="-unity-text-align: middle-center; font-size: 26px;" />
+            <ui:VisualElement style="flex-grow: 1;">
+                <ui:Button text="Choose Game Mode" name="choose-game-mode" />
+                <ui:VisualElement style="flex-grow: 1;">
+                    <ui:TextField label="nickname:" placeholder-text="filler text" name="nickname" />
+                    <ui:Toggle label="mute SFX:" name="mute-sfx" />
+                    <ui:Toggle label="mute ambient:" name="mute-ambient" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; display: none;">
+                <ui:Button text="Play Friendly Wombat (PvP)" name="play-pvp" />
+                <ui:Button text="Play Lucky Puffin (BJ)" name="play-bj" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

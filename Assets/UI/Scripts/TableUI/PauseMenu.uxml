@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center; align-self: center; position: absolute;">
+            <ui:Label text="Pause" style="-unity-text-align: middle-center;" />
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1;">
+                <ui:Button text="Resume" name="resume-table" />
+                <ui:Button text="Restart" name="restart-table" />
+                <ui:Button text="Quit table" name="quit-table" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
