@@ -1,4 +1,5 @@
 using CardsTable.Settings;
+using CardsTable.State;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -17,6 +18,7 @@ namespace CardsTable.DI
             builder.RegisterInstance(gameplaySettings.HandSettings);
 
             builder.RegisterEntryPoint<GameController>(Lifetime.Singleton);
+            builder.Register<GameplayState>(Lifetime.Singleton);
 
             builder.Register<Shuffler>(Lifetime.Singleton);
 

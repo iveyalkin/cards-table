@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using CardsTable.PlayerState;
 using VContainer;
 using VContainer.Unity;
 
@@ -10,7 +8,19 @@ namespace CradsTable.Core.DI
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            // builder.Register<Main>(Lifetime.Singleton);
+            InstallPlayerState(builder);
+
+            builder.Register<PlayerStateData>(Container => {
+                // todo: make it explicit where state is requested
+                var playerStateRepository = Container.Resolve<PlayerStateRepository>();
+                return playerStateRepository.GetPlayerState();
+            }, Lifetime.Singleton);
+        }
+
+        private void InstallPlayerState(IContainerBuilder builder)
+        {
+            builder.Register<PlayerStateStorage>(Lifetime.Singleton);
+            builder.Register<PlayerStateRepository>(Lifetime.Singleton);
         }
     }
 }

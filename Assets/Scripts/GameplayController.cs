@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CardsTable.Settings;
+using CardsTable.State;
 using UnityEngine;
 using UnityEngine.Assertions;
 using VContainer.Unity;
@@ -10,20 +11,20 @@ namespace CardsTable
     public class GameController : ITickable
     {
         private readonly SessionSettings sessionSettings;
+        private readonly GameplayState gameState;
         private readonly Table.Factory tableFactory;
         private readonly Func<Deck> deckFactory;
 
         private readonly PlayersCollection players = new();
         private Table table;
-        private bool isGameEnded;
 
-        public GameController(Table.Factory tableFactory,
-            Func<Deck> deckFactory, SessionSettings sessionSettings)
+        public GameController(Table.Factory tableFactory, Func<Deck> deckFactory,
+            GameplayState gameState, SessionSettings sessionSettings)
         {
             this.sessionSettings = sessionSettings;
             this.tableFactory = tableFactory;
             this.deckFactory = deckFactory;
-            this.isGameEnded = true;
+            this.gameState = gameState;
         }
 
         public void AddPlayer(Player player) => players.Add(player);
@@ -58,7 +59,7 @@ namespace CardsTable
 
         void ITickable.Tick()
         {
-            if (isGameEnded)
+            if (!gameState.isGameStarted)
             {
                 return;
             }
