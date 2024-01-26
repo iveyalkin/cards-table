@@ -5,6 +5,10 @@
             <ui:VisualElement style="flex-grow: 1;">
                 <ui:Button text="Choose Game Mode" name="choose-game-mode" />
                 <ui:VisualElement style="flex-grow: 1;">
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label text="Total score:" style="-unity-text-align: middle-left;" />
+                        <ui:Label text="Label" name="total-score" style="flex-grow: 1; -unity-text-align: middle-right;" />
+                    </ui:VisualElement>
                     <ui:TextField label="nickname:" placeholder-text="filler text" name="nickname" />
                     <ui:Toggle label="mute SFX:" name="mute-sfx" />
                     <ui:Toggle label="mute ambient:" name="mute-ambient" />
