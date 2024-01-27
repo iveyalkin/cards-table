@@ -4,6 +4,7 @@ using CardsTable.Gameplay.State;
 using UnityEngine;
 using UnityEngine.Assertions;
 using VContainer.Unity;
+using CardsTable.Player;
 
 namespace CardsTable.Gameplay
 {
@@ -12,12 +13,13 @@ namespace CardsTable.Gameplay
         private readonly SessionSettings sessionSettings;
         private readonly GameplayState gameState;
         private readonly Table.Factory tableFactory;
-        private readonly Func<Deck> deckFactory;
+        private readonly DeckFactory deckFactory;
 
         private readonly PlayersCollection players = new();
-        private Table table;
 
-        public GameplayController(Table.Factory tableFactory, Func<Deck> deckFactory,
+        private Table currentTable;
+
+        public GameplayController(Table.Factory tableFactory, DeckFactory deckFactory,
             GameplayState gameState, SessionSettings sessionSettings)
         {
             this.sessionSettings = sessionSettings;
@@ -26,11 +28,16 @@ namespace CardsTable.Gameplay
             this.gameState = gameState;
         }
 
-        public void AddPlayer(Player player) => players.Add(player);
+        public void AddPlayer(PlayerModel player) => players.Add(player);
 
-        public void StartGame()
+        public void StartGame(Mode.GameplayMode gameMode)
         {
-            var deck = deckFactory();
+            if (gameState.isGameStarted)
+            {
+                EndGame();
+            }
+
+            var deck = deckFactory.Create();
 
             deck.Shuffle();
 
@@ -48,7 +55,10 @@ namespace CardsTable.Gameplay
             Assert.IsTrue(playersCount <= sessionSettings.MaxPlayersCount);
 
             var tableSettings = sessionSettings.TableSettings[playersCount];
-            table = tableFactory.Create(tableSettings, players, deck);
+            currentTable = tableFactory.Create(tableSettings, players, deck);
+
+            gameState.gameplayMode = gameMode;
+            gameState.isGameStarted = true;
         }
 
         public void EndGame()

@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CardsTable
+namespace CardsTable.PlayingCard
 {
-    public class Card : IComparable<Card>
+    public class CardController : IComparable<CardController>
     {
-        public int CompareTo(Card other)
+        public int CompareTo(CardController other)
         {
             throw new NotImplementedException();
         }

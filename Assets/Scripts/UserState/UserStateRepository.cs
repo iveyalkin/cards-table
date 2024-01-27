@@ -1,17 +1,17 @@
-namespace CardsTable.PlayerState
+namespace CardsTable.UserState
 {
-    public class PlayerStateRepository
+    public class UserStateRepository
     {
-        private readonly PlayerStateStorage playerStateStorage;
+        private readonly UserStateStorage playerStateStorage;
 
-        private PlayerStateData cachedPlayerState;
+        private UserStateData cachedPlayerState;
 
-        public PlayerStateRepository(PlayerStateStorage playerStateStorage)
+        public UserStateRepository(UserStateStorage playerStateStorage)
         {
             this.playerStateStorage = playerStateStorage;
         }
 
-        public PlayerStateData GetPlayerState()
+        public UserStateData GetState()
         {
             if (!cachedPlayerState.isValid)
             {

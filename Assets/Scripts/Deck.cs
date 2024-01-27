@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
+using CardsTable.PlayingCard;
 using CardsTable.Settings;
-using UnityEngine;
 
 namespace CardsTable
 {
@@ -9,14 +8,21 @@ namespace CardsTable
     {
         private readonly Shuffler shuffler;
         private readonly DeckSettings deckSettings;
-        private readonly List<Card> cards = new();
+        private readonly List<CardModel> cards;
+
+        public Deck(Shuffler shuffler, DeckSettings deckSettings, List<CardModel> cards)
+        {
+            this.shuffler = shuffler;
+            this.deckSettings = deckSettings;
+            this.cards = cards;
+        }
 
         public void Shuffle()
         {
             shuffler.Shuffle(cards);
         }
 
-        public Card DrawCard()
+        public CardModel DrawCard()
         {
             return null;
         }

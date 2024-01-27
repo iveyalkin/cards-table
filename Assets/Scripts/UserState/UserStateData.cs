@@ -1,9 +1,9 @@
 using System;
 
-namespace CardsTable.PlayerState
+namespace CardsTable.UserState
 {
     [Serializable]
-    public struct PlayerStateData
+    public struct UserStateData
     {
         public string nickname;
         public int totalScore;

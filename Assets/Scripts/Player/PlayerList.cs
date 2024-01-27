@@ -1,40 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CardsTable
+namespace CardsTable.Player
 {
-    public class PlayersCollection : IEnumerable<Player>
+    public class PlayersCollection : IEnumerable<PlayerModel>
     {
-        private readonly List<Player> players = new ();
+        private readonly List<PlayerModel> players = new ();
         private int currentPlayerIndex;
 
         public int Count => players.Count;
 
-        public Player CurrentPlayer => players[currentPlayerIndex];
+        public PlayerModel CurrentPlayer => players[currentPlayerIndex];
 
-        public Player GoToNextPlayer()
+        public PlayerModel GoToNextPlayer()
         {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
             return CurrentPlayer;
         }
 
-        public Player GoToPreviousPlayer()
+        public PlayerModel GoToPreviousPlayer()
         {
             currentPlayerIndex = (players.Count + currentPlayerIndex - 1) % players.Count;
             return CurrentPlayer;
         }
 
-        public void Add(Player player)
+        public void Add(PlayerModel player)
         {
             players.Add(player);
         }
 
-        public void Remove(Player player)
+        public void Remove(PlayerModel player)
         {
             players.Remove(player);
         }
 
-        public IEnumerator<Player> GetEnumerator()
+        public IEnumerator<PlayerModel> GetEnumerator()
         {
             return players.GetEnumerator();
         }

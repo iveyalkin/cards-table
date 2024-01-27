@@ -1,4 +1,5 @@
 using System;
+using CardsTable.PlayingCard;
 using UnityEngine;
 
 namespace CardsTable.Settings
@@ -7,8 +8,12 @@ namespace CardsTable.Settings
     public class DeckSettings
     {
         [SerializeField]
-        private int cardsCount;
+        private GameObject cardPrefab;
 
-        public int CardsCount => cardsCount;
+        [SerializeField]
+        private CardData[] cards;
+
+        public GameObject CardPrefab => cardPrefab;
+        public CardData[] Cards => cards;
     }
 }

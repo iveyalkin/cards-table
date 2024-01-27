@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.UIElements;
 using VContainer.Unity;
-using CardsTable.PlayerState;
+using CardsTable.UserState;
 
 namespace CardsTable.UI.MainMenu
 {
@@ -35,7 +35,7 @@ namespace CardsTable.UI.MainMenu
             chooseGameModeButton = document.rootVisualElement.Q<Button>("choose-game-mode");
         }
 
-        public void Show(PlayerStateData playerStateData)
+        public void Show(UserStateData playerStateData)
         {
             document.rootVisualElement.style.display = DisplayStyle.Flex;
 

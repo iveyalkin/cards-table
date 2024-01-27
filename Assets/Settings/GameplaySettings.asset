@@ -18,7 +18,20 @@ MonoBehaviour:
     - maxCardsCount: 3
     - maxCardsCount: 3
   deckSettings:
-    cardsCount: 36
+    cardPrefab: {fileID: 3103278278319294819, guid: 11b3c1ddc3bdd5348a42882cbcdf8f27, type: 3}
+    cards:
+    - rank: 1
+      suit: {fileID: 7388822144124034973, guid: 15c3bff398596de479cb9bd540a53c87, type: 3}
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - rank: 1
+      suit: {fileID: 7388822144124034973, guid: 2914aa30b76550f4f8246239e5aceec6, type: 3}
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - rank: 1
+      suit: {fileID: 7388822144124034973, guid: 19659bb7d8c54cd40bb6b0c91eaddb25, type: 3}
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - rank: 1
+      suit: {fileID: 7388822144124034973, guid: bd67257f83386ab4d9b649a216099857, type: 3}
+      color: {r: 0, g: 0, b: 0, a: 0}
   handSettings:
     startCardsCount: 5
     maxCardsCount: 7

@@ -14,6 +14,6 @@ namespace CardsTable.Settings
 
         public int MaxPlayersCount => Mathf.Max(0, tables.Length - 1);
 
-        public TableSettings[] TableSettings { get; internal set; }
+        public TableSettings[] TableSettings => tables;
     }
 }

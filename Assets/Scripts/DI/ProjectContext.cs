@@ -1,4 +1,4 @@
-using CardsTable.PlayerState;
+using CardsTable.UserState;
 using VContainer;
 using VContainer.Unity;
 
@@ -13,8 +13,8 @@ namespace CradsTable.Core.DI
 
         private void InstallPlayerState(IContainerBuilder builder)
         {
-            builder.Register<PlayerStateStorage>(Lifetime.Singleton);
-            builder.Register<PlayerStateRepository>(Lifetime.Singleton);
+            builder.Register<UserStateStorage>(Lifetime.Singleton);
+            builder.Register<UserStateRepository>(Lifetime.Singleton);
         }
     }
 }

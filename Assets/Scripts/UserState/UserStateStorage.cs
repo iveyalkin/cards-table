@@ -1,10 +1,10 @@
-namespace CardsTable.PlayerState
+namespace CardsTable.UserState
 {
-    public class PlayerStateStorage
+    public class UserStateStorage
     {
-        public PlayerStateData LoadPlayerState()
+        public UserStateData LoadPlayerState()
         {
-            return new PlayerStateData
+            return new UserStateData
             {
                 nickname = "Lurking Lynx",
                 totalScore = 100,

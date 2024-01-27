@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using CardsTable.Player;
+using CardsTable.PlayingCard;
 using CardsTable.Settings;
 
 namespace CardsTable
@@ -9,7 +11,7 @@ namespace CardsTable
         private readonly PlayersCollection players;
         private readonly Deck deck;
 
-        private readonly List<Card> tableCards = new();
+        private readonly List<CardModel> tableCards = new();
 
         public Table(TableSettings tableSettings, PlayersCollection players, Deck deck)
         {

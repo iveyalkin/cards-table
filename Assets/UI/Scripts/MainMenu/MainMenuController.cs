@@ -1,6 +1,7 @@
 using System;
 using CardsTable.Gameplay.Mode;
-using CardsTable.PlayerState;
+using CardsTable.UserState;
+using Cysharp.Threading.Tasks;
 using VContainer.Unity;
 
 namespace CardsTable.UI.MainMenu
@@ -8,10 +9,10 @@ namespace CardsTable.UI.MainMenu
     public class MainMenuController : IInitializable, IDisposable
     {
         private readonly MainMenuView view;
-        private readonly PlayerStateRepository playerStateRepository;
+        private readonly UserStateRepository playerStateRepository;
         private readonly GameplayModeLoader gameplayModeLoader;
 
-        public MainMenuController(MainMenuView view, PlayerStateRepository playerStateRepository,
+        public MainMenuController(MainMenuView view, UserStateRepository playerStateRepository,
             GameplayModeLoader gameplayModeLoader)
         {
             this.view = view;
@@ -23,14 +24,14 @@ namespace CardsTable.UI.MainMenu
         {
             view.OnChooseGameModeButtonClicked += OnChooseGameModeButtonClicked;
 
-            view.Show(playerStateRepository.GetPlayerState());
+            view.Show(playerStateRepository.GetState());
 
             gameplayModeLoader.OnGameplayModeUnloaded += OnGameplayModeUnloaded;
         }
 
         private void OnGameplayModeUnloaded()
         {
-            view.Show(playerStateRepository.GetPlayerState());
+            view.Show(playerStateRepository.GetState());
         }
 
         void IDisposable.Dispose()
@@ -42,7 +43,13 @@ namespace CardsTable.UI.MainMenu
 
         private void OnChooseGameModeButtonClicked()
         {
-            gameplayModeLoader.LoadGameplayMode(GameplayMode.PvP);
+            gameplayModeLoader.LoadGameplayMode(GameplayMode.PvP)
+                .ContinueWith(OnGameModeLoaded)
+                .Forget();
+        }
+
+        private void OnGameModeLoaded()
+        {
             view.Hide();
         }
     }
