@@ -2,8 +2,9 @@
     "name": "CardsTable.UI",
     "rootNamespace": "",
     "references": [
+        "GUID:491055eccc8e46143bb1c3f48148a60a",
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
-        "GUID:491055eccc8e46143bb1c3f48148a60a"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
