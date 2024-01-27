@@ -8,7 +8,7 @@ namespace CardsTable.UI.MainMenu.DI
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponentInHierarchy<UIDocument>();
+            builder.RegisterComponentInHierarchy<UIDocument>().UnderTransform(transform);
             builder.Register<MainMenuView>(Lifetime.Singleton)
                 .AsImplementedInterfaces()
                 .AsSelf();

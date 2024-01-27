@@ -8,7 +8,7 @@ namespace CardsTable.UI.TableUI.DI
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponentInHierarchy<UIDocument>();
+            builder.RegisterComponentInHierarchy<UIDocument>().UnderTransform(transform);
 
             builder.Register<TableUIView>(Lifetime.Singleton)
                 .AsImplementedInterfaces()
