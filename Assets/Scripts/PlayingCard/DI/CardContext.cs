@@ -10,7 +10,7 @@ namespace CardsTable.PlayingCard.DI
         {
             builder.RegisterComponentInHierarchy<UIDocument>().UnderTransform(transform);
 
-            builder.RegisterEntryPoint<CardView>(Lifetime.Singleton).AsSelf();
+            builder.RegisterEntryPoint<CardView>(Lifetime.Singleton);
             builder.Register<CardModel>(Lifetime.Singleton);
             builder.RegisterEntryPoint<CardController>(Lifetime.Singleton);
         }
