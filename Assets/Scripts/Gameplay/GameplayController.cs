@@ -57,9 +57,9 @@ namespace CardsTable.Gameplay
         {
             foreach (var player in players)
             {
-                while (!player.HasStartCardsCount)
-                {
                     // todo: do smth like
+                // while (!player.HasStartCardsCount)
+                {
                     // var card = deck.DrawCard();
                     // player.AddCardToHand(card);
                 }
