@@ -5,8 +5,9 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using CardsTable.Gameplay.Mode;
-using CardsTable.PlayingCard.DI;
 using CardsTable.Player.DI;
+using CardsTable.CardDeck;
+using CardsTable.PlayingCard;
 
 namespace CardsTable.DI
 {
@@ -21,7 +22,7 @@ namespace CardsTable.DI
             InstallGameplay(builder);
             InstallPlayer(builder);
             InstallTable(builder);
-            InstallCards(builder);
+            InstallCardsDeck(builder);
         }
 
         private void InstallGameplaySettings(IContainerBuilder builder)
@@ -51,11 +52,10 @@ namespace CardsTable.DI
             builder.Register<Table.Factory>(Lifetime.Singleton);
         }
 
-        private void InstallCards(IContainerBuilder builder)
+        private void InstallCardsDeck(IContainerBuilder builder)
         {
             builder.Register<Shuffler>(Lifetime.Singleton);
-            builder.Register<CardFactory>(Lifetime.Singleton);
-            builder.Register<DeckFactory>(Lifetime.Singleton);
+            builder.Register<CardDeckFactory>(Lifetime.Singleton);
         }
     }
 }

@@ -1,19 +1,25 @@
 using System;
+using CardsTable.CardDeck.DI;
 using CardsTable.PlayingCard;
+using CardsTable.PlayingCard.DI;
 using UnityEngine;
 
 namespace CardsTable.Settings
 {
     [Serializable]
-    public class DeckSettings
+    public class CardDeckSettings
     {
         [SerializeField]
-        private GameObject cardPrefab;
+        private CardContext cardPrefab;
+
+        [SerializeField]
+        private CardDeckContext cardDeckPrefab;
 
         [SerializeField]
         private CardData[] cards;
 
-        public GameObject CardPrefab => cardPrefab;
+        public CardContext CardPrefab => cardPrefab;
+        public CardDeckContext CardDeckPrefab => cardDeckPrefab;
         public CardData[] Cards => cards;
     }
 }

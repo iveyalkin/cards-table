@@ -10,13 +10,13 @@ namespace CardsTable.Settings
         private SessionSettings sessionSettings;
 
         [SerializeField]
-        private DeckSettings deckSettings;
+        private CardDeckSettings deckSettings;
 
         [SerializeField]
         private HandSettings handSettings;
 
         public SessionSettings SessionSettings => sessionSettings;
-        public DeckSettings DeckSettings => deckSettings;
+        public CardDeckSettings DeckSettings => deckSettings;
         public HandSettings HandSettings => handSettings;
     }
 }
