@@ -18,7 +18,8 @@ MonoBehaviour:
     - maxCardsCount: 3
     - maxCardsCount: 3
   deckSettings:
-    cardPrefab: {fileID: 3103278278319294819, guid: 11b3c1ddc3bdd5348a42882cbcdf8f27, type: 3}
+    cardPrefab: {fileID: 7286699827772265211, guid: 11b3c1ddc3bdd5348a42882cbcdf8f27, type: 3}
+    cardDeckPrefab: {fileID: 8276915664693462617, guid: 1b28267775e4fb6408313747bf53acc0, type: 3}
     cards:
     - rank: 1
       suit: {fileID: 7388822144124034973, guid: 15c3bff398596de479cb9bd540a53c87, type: 3}

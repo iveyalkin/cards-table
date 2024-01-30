@@ -6,7 +6,7 @@ namespace CardsTable
 {
     public class Shuffler
     {
-        public void Shuffle(List<CardModel> cards)
+        public void Shuffle(List<CardData> cards)
         {
             for (var i = 1; i < cards.Count; i++)
             {
@@ -15,7 +15,7 @@ namespace CardsTable
             }
         }
 
-        private void Swap(List<CardModel> cards, int i, int j)
+        private void Swap(List<CardData> cards, int i, int j)
         {
             var temp = cards[i];
             cards[i] = cards[j];

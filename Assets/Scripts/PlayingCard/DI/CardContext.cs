@@ -1,9 +1,8 @@
-using CardsTable.PlayingCard;
 using UnityEngine.UIElements;
 using VContainer;
 using VContainer.Unity;
 
-namespace CardsTable.UI.PlayingCard.DI
+namespace CardsTable.PlayingCard.DI
 {
     public class CardContext : LifetimeScope
     {
@@ -11,9 +10,9 @@ namespace CardsTable.UI.PlayingCard.DI
         {
             builder.RegisterComponentInHierarchy<UIDocument>().UnderTransform(transform);
 
-            builder.Register<CardView>(Lifetime.Singleton).AsImplementedInterfaces();
-
-            builder.RegisterEntryPoint<CardController>(Lifetime.Scoped);
+            builder.RegisterEntryPoint<CardView>(Lifetime.Singleton);
+            builder.Register<CardModel>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<CardController>(Lifetime.Singleton);
         }
     }
 }

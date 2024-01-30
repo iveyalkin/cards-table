@@ -1,10 +1,10 @@
-using System;
 using CardsTable.Settings;
 using CardsTable.Gameplay.State;
 using UnityEngine;
 using UnityEngine.Assertions;
 using VContainer.Unity;
 using CardsTable.Player;
+using CardsTable.CardDeck;
 
 namespace CardsTable.Gameplay
 {
@@ -13,13 +13,13 @@ namespace CardsTable.Gameplay
         private readonly SessionSettings sessionSettings;
         private readonly GameplayState gameState;
         private readonly Table.Factory tableFactory;
-        private readonly DeckFactory deckFactory;
+        private readonly CardDeckFactory deckFactory;
 
         private readonly PlayersCollection players = new();
 
         private Table currentTable;
 
-        public GameplayController(Table.Factory tableFactory, DeckFactory deckFactory,
+        public GameplayController(Table.Factory tableFactory, CardDeckFactory deckFactory,
             GameplayState gameState, SessionSettings sessionSettings)
         {
             this.sessionSettings = sessionSettings;
@@ -38,17 +38,9 @@ namespace CardsTable.Gameplay
             }
 
             var deck = deckFactory.Create();
-
             deck.Shuffle();
 
-            foreach (var player in players)
-            {
-                while (!player.HasStartCardsCount)
-                {
-                    var card = deck.DrawCard();
-                    player.AddCardToHand(card);
-                }
-            }
+            PreparePlayers();
 
             var playersCount = Mathf.Max(1, players.Count);
 
@@ -59,6 +51,19 @@ namespace CardsTable.Gameplay
 
             gameState.gameplayMode = gameMode;
             gameState.isGameStarted = true;
+        }
+
+        private void PreparePlayers()
+        {
+            foreach (var player in players)
+            {
+                while (!player.HasStartCardsCount)
+                {
+                    // todo: do smth like
+                    // var card = deck.DrawCard();
+                    // player.AddCardToHand(card);
+                }
+            }
         }
 
         public void EndGame()
