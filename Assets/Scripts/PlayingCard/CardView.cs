@@ -101,7 +101,7 @@ namespace CardsTable.PlayingCard
 
             currentDrag = new DragState {
                 originalPointerPosition = evt.position,
-                currentCardPosition = GetPosition(uiDocument.rootVisualElement.style),
+                currentCardPosition = GetPosition(),
                 isValid = true,
             };
 
@@ -122,9 +122,10 @@ namespace CardsTable.PlayingCard
             style.top = position.y;
         }
 
-        private Vector2 GetPosition(IStyle style)
+        private Vector2 GetPosition()
         {
-            return new Vector2(style.left.value.value, style.top.value.value);
+            var worldBound = uiDocument.rootVisualElement.worldBound;
+            return new Vector2(worldBound.x, worldBound.y);
         }
 
         private struct DragState
