@@ -40,6 +40,12 @@ namespace CardsTable.PlayingCard
 
         private void ReleaseDragAndDrop(VisualElement card)
         {
+            // aid editor workflow
+            if (card == null)
+            {
+                return;
+            }
+
             card.UnregisterCallback<PointerDownEvent>(OnPointerDown);
             card.UnregisterCallback<PointerMoveEvent>(OnPointerMove);
             card.UnregisterCallback<PointerUpEvent>(OnPointerUp);
