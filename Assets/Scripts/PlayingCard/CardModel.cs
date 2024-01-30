@@ -4,15 +4,19 @@ namespace CardsTable.PlayingCard
 {
     public class CardModel
     {
-        public CardData Data { get; }
+        public CardData Data { get; set; }
 
         public event Action<CardModel> OnCardClicked = delegate { };
-        public event Action<CardModel> OnCardDragged = delegate { };
         public event Action<CardModel> OnCardDropped = delegate { };
 
-        public CardModel(CardData data)
+        public void PickCard()
         {
-            Data = data;
+            OnCardClicked(this);
+        }
+
+        public void PlaceCard()
+        {
+            OnCardDropped(this);
         }
     }
 }
