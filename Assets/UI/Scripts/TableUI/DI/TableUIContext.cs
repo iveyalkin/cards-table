@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace CardsTable.UI.TableUI.DI
 {
-    public class TableContext : LifetimeScope
+    public class TableUIContext : LifetimeScope
     {
         protected override void Configure(IContainerBuilder builder)
         {

@@ -9,7 +9,7 @@ using CardsTable.Player.DI;
 using CardsTable.CardDeck;
 using CardsTable.PlayingCard;
 
-namespace CardsTable.DI
+namespace CardsTable.Core.DI
 {
     public class MainContext : LifetimeScope
     {
