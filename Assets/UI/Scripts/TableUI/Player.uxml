@@ -1,7 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="CardSlot" src="project://database/Assets/UI/Scripts/CardSlot.uxml?fileID=9197481963319205126&amp;guid=fd9c5fe028295b94fad3923f519018e9&amp;type=3#CardSlot" />
     <Style src="project://database/Assets/UI/Scripts/TableUI/TableStyle.uss?fileID=7433441132597879392&amp;guid=e2d4ccc506dd2f048ae0d75a05e827a0&amp;type=3#TableStyle" />
     <ui:Label text="player" />
-    <ui:VisualElement name="slot_1" class="card-slot" />
+    <ui:Instance template="CardSlot" name="CardSlot" />
     <ui:VisualElement name="slot_2" class="card-slot" style="width: 40px; height: 60px;" />
     <ui:VisualElement name="slot_3" class="card-slot" style="width: 40px; height: 60px;" />
     <ui:VisualElement name="slot_4" class="card-slot" style="width: 40px; height: 60px;" />
