@@ -1,38 +1,26 @@
 using CardsTable.Settings;
-using CardsTable.Gameplay.State;
-using UnityEngine;
-using UnityEngine.Assertions;
 using VContainer.Unity;
-using CardsTable.Player;
 using CardsTable.CardDeck;
 
 namespace CardsTable.Gameplay
 {
-    public class GameplayController : ITickable
+    public class GameplayController : IStartable, ITickable
     {
         private readonly SessionSettings sessionSettings;
-        private readonly GameplayState gameState;
-        private readonly Table.Factory tableFactory;
+        private readonly GameplayModel gameplayModel;
         private readonly CardDeckFactory deckFactory;
 
-        private readonly PlayersCollection players = new();
-
-        private Table currentTable;
-
-        public GameplayController(Table.Factory tableFactory, CardDeckFactory deckFactory,
-            GameplayState gameState, SessionSettings sessionSettings)
+        public GameplayController(CardDeckFactory deckFactory, GameplayModel gameplayModel,
+             SessionSettings sessionSettings)
         {
             this.sessionSettings = sessionSettings;
-            this.tableFactory = tableFactory;
             this.deckFactory = deckFactory;
-            this.gameState = gameState;
+            this.gameplayModel = gameplayModel;
         }
 
-        public void AddPlayer(PlayerModel player) => players.Add(player);
-
-        public void StartGame(Mode.GameplayMode gameMode)
+        void IStartable.Start()
         {
-            if (gameState.isGameStarted)
+            if (gameplayModel.isGameStarted)
             {
                 EndGame();
             }
@@ -42,20 +30,12 @@ namespace CardsTable.Gameplay
 
             PreparePlayers();
 
-            var playersCount = Mathf.Max(1, players.Count);
-
-            Assert.IsTrue(playersCount <= sessionSettings.MaxPlayersCount);
-
-            var tableSettings = sessionSettings.TableSettings[playersCount];
-            currentTable = tableFactory.Create(tableSettings, players, deck);
-
-            gameState.gameplayMode = gameMode;
-            gameState.isGameStarted = true;
+            gameplayModel.isGameStarted = true;
         }
 
         private void PreparePlayers()
         {
-            foreach (var player in players)
+            foreach (var player in gameplayModel.Players)
             {
                     // todo: do smth like
                 // while (!player.HasStartCardsCount)
@@ -68,7 +48,7 @@ namespace CardsTable.Gameplay
 
         public void EndGame()
         {
-            gameState.isGameStarted = false;
+            gameplayModel.isGameStarted = false;
         }
 
         public void PlayTurn()
@@ -78,7 +58,7 @@ namespace CardsTable.Gameplay
 
         void ITickable.Tick()
         {
-            if (!gameState.isGameStarted)
+            if (!gameplayModel.isGameStarted)
             {
                 return;
             }

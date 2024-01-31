@@ -1,9 +1,10 @@
 using System;
-using System.Threading.Tasks;
-using CardsTable.Player.DI;
+using CardsTable.Player;
 using CardsTable.UserState;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using VContainer;
+using VContainer.Unity;
 
 namespace CardsTable.Gameplay.Mode
 {
@@ -11,54 +12,56 @@ namespace CardsTable.Gameplay.Mode
     {
         private const string TableSceneName = "Table";
 
-        private readonly GameplayController gameplayController;
         private readonly UserStateRepository userStateRepository;
         private readonly PlayerFactory playerFactory;
 
         public event Action OnGameplayModeUnloaded = delegate { };
 
-        public GameplayModeLoader(GameplayController gameplayController, PlayerFactory playerFactory, UserStateRepository userStateRepository)
+        public GameplayModeLoader(PlayerFactory playerFactory, UserStateRepository userStateRepository)
         {
-            this.gameplayController = gameplayController;
             this.playerFactory = playerFactory;
             this.userStateRepository = userStateRepository;
         }
 
         public async UniTask LoadGameplayMode(GameplayMode gameMode)
         {
+            var playersCollection = new PlayersCollection();
+            var userState = userStateRepository.GetState();
+            playersCollection.Add(playerFactory.Create(userState));
+
             switch (gameMode)
             {
                 case GameplayMode.PvP:
-                    await LoadPvPMode();
+                    LoadBots(playersCollection);
                     break;
                 case GameplayMode.BJ:
-                    await LoadBJMode();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null);
             }
 
-            var userState = userStateRepository.GetState();
-            gameplayController.AddPlayer(playerFactory.Create(userState));
-
-            gameplayController.StartGame(gameMode);
+            using (LifetimeScope.Enqueue(builder =>
+            {
+                builder.RegisterInstance(gameMode);
+                builder.RegisterInstance(playersCollection);
+            }))
+            {
+                await SceneManager.LoadSceneAsync(TableSceneName, LoadSceneMode.Additive).ToUniTask();
+            }
         }
 
-        private async Task LoadBJMode()
+        private void LoadBots(PlayersCollection playersCollection)
         {
-            await SceneManager.LoadSceneAsync(TableSceneName, LoadSceneMode.Additive).ToUniTask();
-        }
-
-        private async Task LoadPvPMode()
-        {
-            await SceneManager.LoadSceneAsync(TableSceneName, LoadSceneMode.Additive).ToUniTask();
-
-            var botState = new UserStateData {
-                nickname = "Bot",
-                totalScore = 0
+            var botState = new UserStateData
+            {
+                playerState = new PlayerState
+                {
+                    gameId = "Bot",
+                    score = 0
+                }
             };
 
-            gameplayController.AddPlayer(playerFactory.Create(botState));
+            playersCollection.Add(playerFactory.Create(botState));
         }
 
         public async UniTask RestartGameplayMode()
