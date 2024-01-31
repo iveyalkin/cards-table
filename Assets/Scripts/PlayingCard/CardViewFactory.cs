@@ -6,26 +6,19 @@ namespace CardsTable.PlayingCard
 {
     public class CardViewFactory
     {
-        private readonly IObjectResolver objectResolver;
         private readonly CardDeckSettings deckSettings;
+        private readonly LifetimeScope lifetimeScope;
 
-        public CardViewFactory(IObjectResolver objectResolver, CardDeckSettings deckSettings)
+        public CardViewFactory(CardDeckSettings deckSettings, LifetimeScope lifetimeScope)
         {
-            this.objectResolver = objectResolver;
             this.deckSettings = deckSettings;
+            this.lifetimeScope = lifetimeScope;
         }
 
         public CardModel Create(CardData data)
         {
-            var context = objectResolver.Instantiate(deckSettings.CardPrefab);
-
-            // todo: deal with side effects, i.e. instantiated card prefab GO
-            var model = context.Container.Resolve<CardModel>();
-
-            // workaround for VContainer's limitation i.e. cannot inject CardData even with a subScopedContainer
-            model.Data = data;
-
-            return model;
+            var context = lifetimeScope.CreateChildFromPrefab(deckSettings.CardPrefab, (builder) => builder.RegisterInstance(data));
+            return context.Container.Resolve<CardModel>();
         }
     }
 }

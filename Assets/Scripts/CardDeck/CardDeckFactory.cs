@@ -6,19 +6,18 @@ namespace CardsTable.CardDeck
 {
     public class CardDeckFactory
     {
-        private readonly IObjectResolver objectResolver;
         private readonly CardDeckSettings deckSettings;
+        private readonly LifetimeScope lifetimeScope;
 
-        public CardDeckFactory(IObjectResolver objectResolver, CardDeckSettings deckSettings)
+        public CardDeckFactory(CardDeckSettings deckSettings, LifetimeScope lifetimeScope)
         {
-            this.objectResolver = objectResolver;
             this.deckSettings = deckSettings;
+            this.lifetimeScope = lifetimeScope;
         }
 
         public CardDeckModel Create()
         {
-            var context = objectResolver.Instantiate(deckSettings.CardDeckPrefab);
-            
+            var context = lifetimeScope.CreateChildFromPrefab(deckSettings.CardDeckPrefab);
             return context.Container.Resolve<CardDeckModel>();
         }
     }
