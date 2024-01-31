@@ -1,5 +1,3 @@
-using CardsTable;
-using CardsTable.CardDeck;
 using CardsTable.Gameplay;
 using CardsTable.Table;
 using UnityEngine;
@@ -17,7 +15,6 @@ namespace CradsTable.Core.DI
         protected override void Configure(IContainerBuilder builder)
         {
             InstallGameplay(builder);
-            InstallCardsDeck(builder);
             InstallTable(builder);
         }
 
@@ -26,12 +23,6 @@ namespace CradsTable.Core.DI
             builder.RegisterEntryPoint<GameplayController>(Lifetime.Singleton);
             builder.RegisterEntryPoint<GameplayModel>(Lifetime.Singleton)
                 .AsSelf();
-        }
-
-        protected void InstallCardsDeck(IContainerBuilder builder)
-        {
-            builder.Register<Shuffler>(Lifetime.Singleton);
-            builder.Register<CardDeckFactory>(Lifetime.Singleton);
         }
 
         protected void InstallTable(IContainerBuilder builder)

@@ -8,13 +8,11 @@ namespace CardsTable.CardDeck
     {
         private readonly CardDeckView view;
         private readonly CardDeckModel model;
-        private readonly CardViewFactory cardFactory;
 
-        public CardDeckController(CardDeckView view, CardDeckModel model, CardViewFactory cardFactory)
+        public CardDeckController(CardDeckView view, CardDeckModel model)
         {
             this.view = view;
-            this.model = model;
-            this.cardFactory = cardFactory;
+            this.model = model;;
         }
 
         void IInitializable.Initialize()
@@ -29,8 +27,6 @@ namespace CardsTable.CardDeck
 
         private void OnDrawCard()
         {
-            var data = model.DrawCard();
-            var cardModel = cardFactory.Create(data);
         }
     }
 }

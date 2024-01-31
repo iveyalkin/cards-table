@@ -1,4 +1,5 @@
 using System;
+using CardsTable.CardDeck;
 using CardsTable.Player;
 using CardsTable.UserState;
 using Cysharp.Threading.Tasks;
@@ -14,12 +15,15 @@ namespace CardsTable.Gameplay.Mode
 
         private readonly UserStateRepository userStateRepository;
         private readonly PlayerFactory playerFactory;
+        private readonly CardDeckFactory cardDeckFactory;
 
         public event Action OnGameplayModeUnloaded = delegate { };
 
-        public GameplayModeLoader(PlayerFactory playerFactory, UserStateRepository userStateRepository)
+        public GameplayModeLoader(PlayerFactory playerFactory, CardDeckFactory cardDeckFactory,
+            UserStateRepository userStateRepository)
         {
             this.playerFactory = playerFactory;
+            this.cardDeckFactory = cardDeckFactory;
             this.userStateRepository = userStateRepository;
         }
 
@@ -40,10 +44,13 @@ namespace CardsTable.Gameplay.Mode
                     throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null);
             }
 
+            var cardDeck = cardDeckFactory.Create();
+
             using (LifetimeScope.Enqueue(builder =>
             {
                 builder.RegisterInstance(gameMode);
                 builder.RegisterInstance(playersCollection);
+                builder.RegisterInstance(cardDeck);
             }))
             {
                 await SceneManager.LoadSceneAsync(TableSceneName, LoadSceneMode.Additive).ToUniTask();

@@ -14,6 +14,8 @@ namespace CardsTable.CardDeck
 
         public IEnumerable<CardData> Cards => cards;
 
+        public bool IsEmpty => cards.Count == 0;
+
         public CardDeckModel(Shuffler shuffler, CardDeckSettings deckSettings)
         {
             this.shuffler = shuffler;

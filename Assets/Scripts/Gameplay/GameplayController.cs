@@ -8,13 +8,10 @@ namespace CardsTable.Gameplay
     {
         private readonly SessionSettings sessionSettings;
         private readonly GameplayModel gameplayModel;
-        private readonly CardDeckFactory deckFactory;
 
-        public GameplayController(CardDeckFactory deckFactory, GameplayModel gameplayModel,
-             SessionSettings sessionSettings)
+        public GameplayController(GameplayModel gameplayModel, SessionSettings sessionSettings)
         {
             this.sessionSettings = sessionSettings;
-            this.deckFactory = deckFactory;
             this.gameplayModel = gameplayModel;
         }
 
@@ -25,8 +22,7 @@ namespace CardsTable.Gameplay
                 EndGame();
             }
 
-            var deck = deckFactory.Create();
-            deck.Shuffle();
+            gameplayModel.CardDeckModel.Shuffle();
 
             PreparePlayers();
 
@@ -37,11 +33,10 @@ namespace CardsTable.Gameplay
         {
             foreach (var player in gameplayModel.Players)
             {
-                    // todo: do smth like
-                // while (!player.HasStartCardsCount)
+                while (!player.HasStartCardsCount)
                 {
-                    // var card = deck.DrawCard();
-                    // player.AddCardToHand(card);
+                    var card = gameplayModel.CardDeckModel.DrawCard();
+                    player.AddCardToHand(card);
                 }
             }
         }

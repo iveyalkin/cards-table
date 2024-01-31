@@ -1,10 +1,9 @@
-using CardsTable.Gameplay;
+using CardsTable.CardDeck;
 using CardsTable.Gameplay.Mode;
 using CardsTable.Player;
 using CardsTable.UserState;
 using CradsTable.Core.DI;
 using VContainer;
-using VContainer.Unity;
 
 namespace CardsTable.Core.DI
 {
@@ -25,12 +24,21 @@ namespace CardsTable.Core.DI
                 {
                     playerFactory.Create(userState)
                 };
-            }, Lifetime.Scoped);
+            }, Lifetime.Singleton);
 
-            builder.RegisterComponentInHierarchy<CardSlotView>();
+            builder.Register(Container => {
+                var factory = Container.Resolve<CardDeckFactory>();
+                return factory.Create();
+            }, Lifetime.Singleton);
+
+            builder.Register(container => {
+                var userStateRepository = container.Resolve<UserStateRepository>();
+                var userState = userStateRepository.GetState();
+
+                return userState.playerState;
+            }, Lifetime.Singleton);
 
             InstallGameplay(builder);
-            InstallCardsDeck(builder);
             // InstallTable(builder);
         }
     }
