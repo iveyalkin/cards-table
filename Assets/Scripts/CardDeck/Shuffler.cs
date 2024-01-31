@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CardsTable.PlayingCard;
 using UnityEngine;
 
-namespace CardsTable
+namespace CardsTable.CardDeck
 {
     public class Shuffler
     {
