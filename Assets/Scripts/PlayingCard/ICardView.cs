@@ -8,7 +8,8 @@ namespace CardsTable.PlayingCard
         public event Action OnDragStart;
         public event Action OnDragStop;
         public event Action OnDragUpdate;
-        
+
+        void FlipCard(bool shouldFaceUp);
         void Show(CardData state);
         void SetPosition(Vector2 position);
     }

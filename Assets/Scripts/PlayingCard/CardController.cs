@@ -21,6 +21,7 @@ namespace CardsTable.PlayingCard
             view.OnDragStop += OnDragStop;
             view.OnDragUpdate += OnDragUpdate;
 
+            model.OnCardFlipped += view.FlipCard;
             model.OnPositionUpdated += view.SetPosition;
         }
 

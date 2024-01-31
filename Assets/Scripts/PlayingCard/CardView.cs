@@ -114,6 +114,11 @@ namespace CardsTable.PlayingCard
             colorBackground.style.backgroundColor = state.color;
         }
 
+        public void FlipCard(bool shouldFaceUp)
+        {
+            
+        }
+
         public void SetPosition(Vector2 position)
         {
             if (currentDrag.isValid)
