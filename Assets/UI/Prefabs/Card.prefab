@@ -62,6 +62,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: CardsTable.Core.DI.MainContext
+    TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
