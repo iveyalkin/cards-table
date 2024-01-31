@@ -1,3 +1,5 @@
+using System;
+using CardsTable.Player.Hand;
 using CardsTable.PlayingCard;
 
 namespace CardsTable.Player
@@ -13,6 +15,18 @@ namespace CardsTable.Player
 
         public bool HasStartCardsCount => handModel.HasStartCardsCount;
 
+        public event Action<CardData> OnCardAdded
+        {
+            add => handModel.OnCardAdded += value;
+            remove => handModel.OnCardAdded -= value;
+        }
+
+        public event Action<CardData> OnCardRemoved
+        {
+            add => handModel.OnCardRemoved += value;
+            remove => handModel.OnCardRemoved -= value;
+        }
+
         public PlayerModel(PlayerState playerState, HandModel handModel)
         {
             this.handModel = handModel;
@@ -24,12 +38,12 @@ namespace CardsTable.Player
             playerState.score += score;
         }
 
-        public void AddCardToHand(CardModel card)
+        public void AddCardToHand(CardData card)
         {
             handModel.AddCard(card);
         }
 
-        public void RemoveCardFromHand(CardModel card)
+        public void RemoveCardFromHand(CardData card)
         {
             handModel.RemoveCard(card);
         }

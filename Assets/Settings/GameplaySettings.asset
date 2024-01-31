@@ -34,6 +34,6 @@ MonoBehaviour:
       suit: {fileID: 7388822144124034973, guid: bd67257f83386ab4d9b649a216099857, type: 3}
       color: {r: 0, g: 0, b: 0, a: 0}
   handSettings:
-    startCardsCount: 5
-    maxCardsCount: 7
+    startCardsCount: 2
+    maxCardsCount: 4
     playerPrefab: {fileID: 5870773991998152124, guid: 81044b0f7ff7a2747b0fc546e5fc2476, type: 3}

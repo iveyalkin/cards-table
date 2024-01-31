@@ -1,29 +1,37 @@
+using System;
 using System.Collections.Generic;
 using CardsTable.PlayingCard;
 using CardsTable.Settings;
 
-namespace CardsTable.Player
+namespace CardsTable.Player.Hand
 {
     public class HandModel
     {
         private readonly HandSettings handSettings;
-        private readonly List<CardModel> cards = new ();
+        private readonly List<CardData> cards = new ();
 
         public bool HasStartCardsCount=> handSettings.StartCardsCount == cards.Count;
+
+        public event Action<CardData> OnCardAdded = delegate {  };
+        public event Action<CardData> OnCardRemoved = delegate {  };
 
         public HandModel(HandSettings handSettings)
         {
             this.handSettings = handSettings;
         }
 
-        public void AddCard(CardModel card)
+        public void AddCard(CardData card)
         {
             cards.Add(card);
+
+            OnCardAdded(card);
         }
 
-        public void RemoveCard(CardModel card)
+        public void RemoveCard(CardData card)
         {
             cards.Remove(card);
+
+            OnCardRemoved(card);
         }
     }
 }

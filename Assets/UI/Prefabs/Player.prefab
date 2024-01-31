@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589074505449911440}
   - component: {fileID: 5870773991998152124}
+  - component: {fileID: 7671220101879714397}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -48,3 +49,19 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+--- !u!114 &7671220101879714397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7408833430448595160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 71d842efca7311c4aa1e6ecf8e888ecf, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 334863ce778127e47b68fba452602841, type: 3}
+  m_SortingOrder: 0
