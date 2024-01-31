@@ -20,6 +20,8 @@ namespace CardsTable.PlayingCard
             view.OnDragStart += OnDragStart;
             view.OnDragStop += OnDragStop;
             view.OnDragUpdate += OnDragUpdate;
+
+            model.OnPositionUpdated += view.SetPosition;
         }
 
         void IDisposable.Dispose()
@@ -27,6 +29,8 @@ namespace CardsTable.PlayingCard
             view.OnDragStart -= OnDragStart;
             view.OnDragStop -= OnDragStop;
             view.OnDragUpdate -= OnDragUpdate;
+
+            model.OnPositionUpdated -= view.SetPosition;
         }
 
         private void OnDragUpdate()

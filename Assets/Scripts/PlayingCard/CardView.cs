@@ -83,10 +83,9 @@ namespace CardsTable.PlayingCard
             var pointerPosition = (Vector2) evt.position;
             var delta = pointerPosition - currentDrag.originalPointerPosition;
 
-            currentDrag.currentCardPosition += delta;
             currentDrag.originalPointerPosition = pointerPosition;
 
-            MoveCard(currentDrag.currentCardPosition);
+            SetPosition(currentDrag.currentCardPosition + delta);
 
             OnDragUpdate();
         }
@@ -115,8 +114,13 @@ namespace CardsTable.PlayingCard
             colorBackground.style.backgroundColor = state.color;
         }
 
-        private void MoveCard(Vector2 position)
+        public void SetPosition(Vector2 position)
         {
+            if (currentDrag.isValid)
+            {
+                currentDrag.currentCardPosition = position;
+            }
+
             var style = uiDocument.rootVisualElement.style;
             style.left = position.x;
             style.top = position.y;

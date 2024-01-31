@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace CardsTable.PlayingCard
 {
@@ -9,5 +10,6 @@ namespace CardsTable.PlayingCard
         public event Action OnDragUpdate;
         
         void Show(CardData state);
+        void SetPosition(Vector2 position);
     }
 }

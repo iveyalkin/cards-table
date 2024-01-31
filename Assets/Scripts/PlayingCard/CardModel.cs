@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace CardsTable.PlayingCard
 {
@@ -6,8 +7,16 @@ namespace CardsTable.PlayingCard
     {
         public CardData Data { get; set; }
 
+        public Vector2 Position { get; private set; }
+
         public event Action<CardModel> OnCardClicked = delegate { };
         public event Action<CardModel> OnCardDropped = delegate { };
+        public event Action<Vector2> OnPositionUpdated = delegate { };
+
+        public CardModel(CardData data)
+        {
+            Data = data;
+        }
 
         public void PickCard()
         {
@@ -17,6 +26,12 @@ namespace CardsTable.PlayingCard
         public void PlaceCard()
         {
             OnCardDropped(this);
+        }
+
+        internal void AlignWith(Rect bounds)
+        {
+            Position = bounds.center;
+            OnPositionUpdated(Position);
         }
     }
 }
