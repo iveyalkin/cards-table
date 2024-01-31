@@ -36,3 +36,4 @@ MonoBehaviour:
   handSettings:
     startCardsCount: 5
     maxCardsCount: 7
+    playerPrefab: {fileID: 5870773991998152124, guid: 81044b0f7ff7a2747b0fc546e5fc2476, type: 3}

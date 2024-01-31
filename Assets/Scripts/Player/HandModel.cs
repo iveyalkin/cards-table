@@ -1,19 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using CardsTable.PlayingCard;
 using CardsTable.Settings;
-using UnityEngine;
 
-namespace CardsTable
+namespace CardsTable.Player
 {
-    public class Hand
+    public class HandModel
     {
         private readonly HandSettings handSettings;
         private readonly List<CardModel> cards = new ();
 
         public bool HasStartCardsCount=> handSettings.StartCardsCount == cards.Count;
 
-        public Hand(HandSettings handSettings)
+        public HandModel(HandSettings handSettings)
         {
             this.handSettings = handSettings;
         }

@@ -39,8 +39,8 @@ namespace CardsTable.UI.MainMenu
         {
             document.rootVisualElement.style.display = DisplayStyle.Flex;
 
-            nicknameTextField.value = playerStateData.nickname;
-            totalScoreLabel.text = $"{playerStateData.totalScore}"; // todo: use formatter to represent it like 2kk
+            nicknameTextField.value = playerStateData.playerState.gameId;
+            totalScoreLabel.text = $"{playerStateData.playerState.score}"; // todo: use formatter to represent it like 2kk
             muteSfxToggle.value = playerStateData.isSfxMuted;
             muteAmbientToggle.value = playerStateData.isAmbientMuted;
         }

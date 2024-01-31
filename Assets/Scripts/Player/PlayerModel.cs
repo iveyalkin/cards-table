@@ -4,36 +4,34 @@ namespace CardsTable.Player
 {
     public class PlayerModel
     {
-        private readonly Hand hand;
-        private readonly string gameId;
+        private readonly HandModel handModel;
 
-        private int score;
+        private PlayerState playerState;
 
-        public string GameId => gameId;
-        public int Score => score;
+        public string GameId => playerState.gameId;
+        public int Score => playerState.score;
 
-        public bool HasStartCardsCount => hand.HasStartCardsCount;
+        public bool HasStartCardsCount => handModel.HasStartCardsCount;
 
-        public PlayerModel(string gameId, int score, Hand hand)
+        public PlayerModel(PlayerState playerState, HandModel handModel)
         {
-            this.gameId = gameId;
-            this.hand = hand;
-            this.score = score;
+            this.handModel = handModel;
+            this.playerState = playerState;
         }
 
         public void AddScore(int score)
         {
-            this.score += score;
+            playerState.score += score;
         }
 
         public void AddCardToHand(CardModel card)
         {
-            hand.AddCard(card);
+            handModel.AddCard(card);
         }
 
         public void RemoveCardFromHand(CardModel card)
         {
-            hand.RemoveCard(card);
+            handModel.RemoveCard(card);
         }
     }
 }

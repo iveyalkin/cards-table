@@ -1,3 +1,5 @@
+using CardsTable.Player;
+
 namespace CardsTable.UserState
 {
     public class UserStateStorage
@@ -6,8 +8,10 @@ namespace CardsTable.UserState
         {
             return new UserStateData
             {
-                nickname = "Lurking Lynx",
-                totalScore = 100,
+                playerState = new PlayerState {
+                    gameId = "Lurking Lynx",
+                    score = 100
+                },
                 isValid = true
             };
         }

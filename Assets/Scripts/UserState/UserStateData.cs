@@ -1,12 +1,12 @@
 using System;
+using CardsTable.Player;
 
 namespace CardsTable.UserState
 {
     [Serializable]
     public struct UserStateData
     {
-        public string nickname;
-        public int totalScore;
+        public PlayerState playerState;
         public bool isSfxMuted;
         public bool isAmbientMuted;
 
