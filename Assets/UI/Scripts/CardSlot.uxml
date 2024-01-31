@@ -1,3 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Scripts/TableUI/TableStyle.uss?fileID=7433441132597879392&amp;guid=e2d4ccc506dd2f048ae0d75a05e827a0&amp;type=3#TableStyle" />
     <ui:VisualElement name="slot" class="card-slot" />
 </ui:UXML>
