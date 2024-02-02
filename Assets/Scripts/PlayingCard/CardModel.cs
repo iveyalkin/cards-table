@@ -30,9 +30,9 @@ namespace CardsTable.PlayingCard
             OnCardDropped(this);
         }
 
-        public void AlignWith(Rect bounds)
+        public void AlignWith(Vector2 origin)
         {
-            Position = bounds.center;
+            Position = origin;
             OnPositionUpdated(Position);
         }
 

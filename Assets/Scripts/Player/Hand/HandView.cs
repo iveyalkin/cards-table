@@ -13,7 +13,7 @@ namespace CardsTable.Player.Hand
 
         private List<VisualElement> cardSlots;
 
-        private readonly Dictionary<CardData, VisualElement> occupiedSlots = new ();
+        private readonly Dictionary<CardData, VisualElement> occupiedSlots = new();
 
         public IReadOnlyList<VisualElement> CardSlots => cardSlots;
 
@@ -24,7 +24,8 @@ namespace CardsTable.Player.Hand
 
         void IStartable.Start()
         {
-            cardSlots = uiDocument.rootVisualElement.Query<VisualElement>().ToList();
+            cardSlots = uiDocument.rootVisualElement.Query<VisualElement>(className: "card-slot")
+                .ToList();
         }
 
         void IDisposable.Dispose()
@@ -33,7 +34,7 @@ namespace CardsTable.Player.Hand
             occupiedSlots.Clear();
         }
 
-        public Rect OccupySlot(CardData card)
+        public Vector2 OccupySlot(CardData card)
         {
             if (cardSlots.Count == 0)
             {
@@ -45,7 +46,7 @@ namespace CardsTable.Player.Hand
             cardSlots.RemoveAt(cardSlots.Count - 1);
             occupiedSlots.Add(card, slot);
 
-            return slot.worldBound;         
+            return slot.worldBound.min + (Vector2)slot.transform.position;
         }
 
         public void ReleaseSlot(CardData card)

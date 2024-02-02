@@ -1,10 +1,10 @@
 using CardsTable.Settings;
 using VContainer.Unity;
-using CardsTable.CardDeck;
+using Cysharp.Threading.Tasks;
 
 namespace CardsTable.Gameplay
 {
-    public class GameplayController : IStartable, ITickable
+    public class GameplayController : IAsyncStartable, ITickable
     {
         private readonly SessionSettings sessionSettings;
         private readonly GameplayModel gameplayModel;
@@ -15,7 +15,7 @@ namespace CardsTable.Gameplay
             this.gameplayModel = gameplayModel;
         }
 
-        void IStartable.Start()
+        async UniTask IAsyncStartable.StartAsync(System.Threading.CancellationToken cancellation)
         {
             if (gameplayModel.isGameStarted)
             {
@@ -23,6 +23,9 @@ namespace CardsTable.Gameplay
             }
 
             gameplayModel.CardDeckModel.Shuffle();
+
+            // gives some time to unity to render the UI
+            await UniTask.NextFrame(cancellation);
 
             PreparePlayers();
 

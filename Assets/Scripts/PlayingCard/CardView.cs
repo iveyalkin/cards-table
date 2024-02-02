@@ -19,6 +19,31 @@ namespace CardsTable.PlayingCard
         public event Action OnDragStop = delegate { };
         public event Action OnDragUpdate = delegate { };
 
+        // todo: figure out the difference and the best source of the position
+        private Vector2 Position
+        {
+            get
+            {
+                return uiDocument.rootVisualElement.transform.position;
+                
+                // var worldBound = uiDocument.rootVisualElement.worldBound;
+                // return new Vector2(worldBound.x, worldBound.y);
+            }
+            set
+            {
+                if (currentDrag.isValid)
+                {
+                    currentDrag.currentCardPosition = value;
+                }
+
+                uiDocument.rootVisualElement.transform.position = value;
+                
+                // var style = uiDocument.rootVisualElement.style;
+                // style.left = position.x;
+                // style.top = position.y;
+            }
+        }
+
         public CardView(UIDocument uiDocument)
         {
             this.uiDocument = uiDocument;
@@ -53,7 +78,7 @@ namespace CardsTable.PlayingCard
 
         private void SetupDragAndDrop(VisualElement card)
         {
-            uiDocument.rootVisualElement.style.position = Position.Absolute;
+            uiDocument.rootVisualElement.style.position = UnityEngine.UIElements.Position.Absolute;
 
             card.RegisterCallback<PointerDownEvent>(OnPointerDown);
             card.RegisterCallback<PointerMoveEvent>(OnPointerMove);
@@ -100,7 +125,7 @@ namespace CardsTable.PlayingCard
 
             currentDrag = new DragState {
                 originalPointerPosition = evt.position,
-                currentCardPosition = GetPosition(),
+                currentCardPosition = Position,
                 isValid = true,
             };
 
@@ -119,23 +144,7 @@ namespace CardsTable.PlayingCard
             
         }
 
-        public void SetPosition(Vector2 position)
-        {
-            if (currentDrag.isValid)
-            {
-                currentDrag.currentCardPosition = position;
-            }
-
-            var style = uiDocument.rootVisualElement.style;
-            style.left = position.x;
-            style.top = position.y;
-        }
-
-        private Vector2 GetPosition()
-        {
-            var worldBound = uiDocument.rootVisualElement.worldBound;
-            return new Vector2(worldBound.x, worldBound.y);
-        }
+        public void SetPosition(Vector2 position) => Position = position;
 
         private struct DragState
         {
