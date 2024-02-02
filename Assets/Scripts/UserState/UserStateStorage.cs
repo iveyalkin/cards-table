@@ -10,7 +10,8 @@ namespace CardsTable.UserState
             {
                 playerState = new PlayerState {
                     gameId = "Lurking Lynx",
-                    score = 100
+                    score = 100,
+                    isLocalUser = true
                 },
                 isValid = true
             };

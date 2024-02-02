@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 
 namespace CardsTable.Gameplay
 {
-    public class GameplayController : IAsyncStartable, ITickable
+    public class GameplayController : IAsyncStartable
     {
         private readonly SessionSettings sessionSettings;
         private readonly GameplayModel gameplayModel;
@@ -30,6 +30,8 @@ namespace CardsTable.Gameplay
             PreparePlayers();
 
             gameplayModel.isGameStarted = true;
+
+            GameLoop().Forget();
         }
 
         private void PreparePlayers()
@@ -49,19 +51,20 @@ namespace CardsTable.Gameplay
             gameplayModel.isGameStarted = false;
         }
 
-        public void PlayTurn()
+        private async UniTask PlayTurn()
         {
-            
+            foreach (var player in gameplayModel.Players)
+            {
+                await player.StartTurn();
+            }
         }
 
-        void ITickable.Tick()
+        private async UniTaskVoid GameLoop()
         {
-            if (!gameplayModel.isGameStarted)
+            while (gameplayModel.isGameStarted)
             {
-                return;
+                await PlayTurn();
             }
-
-            PlayTurn();
         }
     }
 }

@@ -12,5 +12,6 @@ namespace CardsTable.PlayingCard
         void FlipCard(bool shouldFaceUp);
         void Show(CardData state);
         void SetPosition(Vector2 position);
+        void SetInteractable(bool isInteractable);
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using CardsTable.PlayingCard;
 using VContainer.Unity;
 
 namespace CardsTable.CardDeck

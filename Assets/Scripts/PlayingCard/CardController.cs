@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace CardsTable.PlayingCard
 {
-    public class CardController : IInitializable, IDisposable
+    public class CardController : IInitializable, IStartable, IDisposable
     {
         private readonly CardModel model;
         private readonly ICardView view;
@@ -25,12 +25,19 @@ namespace CardsTable.PlayingCard
             model.OnPositionUpdated += view.SetPosition;
         }
 
+        void IStartable.Start()
+        {
+            model.OnInteractableChanged += view.SetInteractable;
+            view.Show(model.Data);
+        }
+
         void IDisposable.Dispose()
         {
             view.OnDragStart -= OnDragStart;
             view.OnDragStop -= OnDragStop;
             view.OnDragUpdate -= OnDragUpdate;
 
+            model.OnInteractableChanged -= view.SetInteractable;
             model.OnPositionUpdated -= view.SetPosition;
         }
 

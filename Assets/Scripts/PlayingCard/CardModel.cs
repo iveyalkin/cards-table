@@ -5,19 +5,34 @@ namespace CardsTable.PlayingCard
 {
     public class CardModel
     {
-        public CardData Data { get; set; }
+        private CardData data;
+        private bool isInteractable;
+
+        public CardData Data => data;
 
         public Vector2 Position { get; private set; }
-        public bool IsFaceUp { get; private set; }
+        public bool IsInteractable
+        {
+            get => isInteractable;
+            set
+            {
+                if (isInteractable == value)
+                    return;
+
+                isInteractable = value;
+                OnInteractableChanged(value);
+            }
+        }
 
         public event Action<CardModel> OnCardClicked = delegate { };
         public event Action<CardModel> OnCardDropped = delegate { };
         public event Action<bool> OnCardFlipped = delegate { };
         public event Action<Vector2> OnPositionUpdated = delegate { };
+        public event Action<bool> OnInteractableChanged = delegate { };
 
         public CardModel(CardData data)
         {
-            Data = data;
+            this.data = data;
         }
 
         public void PickCard()
@@ -38,10 +53,10 @@ namespace CardsTable.PlayingCard
 
         public void SetFaceUp(bool shouldFaceUp)
         {
-            if (IsFaceUp == shouldFaceUp)
+            if (data.isFaceUp == shouldFaceUp)
                 return;
 
-            IsFaceUp = shouldFaceUp;
+            data.isFaceUp = shouldFaceUp;
 
             OnCardFlipped(shouldFaceUp);
         }

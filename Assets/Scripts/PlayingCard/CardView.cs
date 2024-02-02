@@ -12,6 +12,7 @@ namespace CardsTable.PlayingCard
         private Label rankLabel;
         private VisualElement suitImage;
         private VisualElement colorBackground;
+        private VisualElement cover;
 
         private DragState currentDrag;
 
@@ -54,6 +55,7 @@ namespace CardsTable.PlayingCard
             rankLabel = uiDocument.rootVisualElement.Q<Label>("rank");
             suitImage = uiDocument.rootVisualElement.Q<VisualElement>("suit");
             colorBackground = uiDocument.rootVisualElement.Q<VisualElement>("color");
+            cover = uiDocument.rootVisualElement.Q<VisualElement>("cover");
 
             SetupDragAndDrop(uiDocument.rootVisualElement);
         }
@@ -137,14 +139,21 @@ namespace CardsTable.PlayingCard
             rankLabel.text = $"{state.rank}";
             suitImage.style.backgroundImage = new StyleBackground(state.suit);
             colorBackground.style.backgroundColor = state.color;
+
+            FlipCard(state.isFaceUp);
         }
 
         public void FlipCard(bool shouldFaceUp)
         {
-            
+            cover.style.display = shouldFaceUp ? DisplayStyle.None : DisplayStyle.Flex;
         }
 
         public void SetPosition(Vector2 position) => Position = position;
+
+        public void SetInteractable(bool isInteractable)
+        {
+            uiDocument.rootVisualElement.SetEnabled(isInteractable);
+        }
 
         private struct DragState
         {

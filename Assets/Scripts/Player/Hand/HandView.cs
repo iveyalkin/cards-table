@@ -60,5 +60,10 @@ namespace CardsTable.Player.Hand
             occupiedSlots.Remove(card);
             cardSlots.Add(slot);
         }
+
+        public void SetActive(bool isActiveHand)
+        {
+            
+        }
     }
 }

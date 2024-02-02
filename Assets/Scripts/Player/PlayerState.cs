@@ -6,6 +6,7 @@ namespace CardsTable.Player
     public struct PlayerState
     {
         public string gameId;
+        public bool isLocalUser;
         public int score;
     }
 }
