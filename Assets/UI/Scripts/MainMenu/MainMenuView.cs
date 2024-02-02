@@ -5,7 +5,7 @@ using CardsTable.UserState;
 
 namespace CardsTable.UI.MainMenu
 {
-    public class MainMenuView: IInitializable
+    public class MainMenuView: IStartable
     {
         private readonly UIDocument document;
 
@@ -26,7 +26,7 @@ namespace CardsTable.UI.MainMenu
             this.document = document;
         }
 
-        void IInitializable.Initialize()
+        void IStartable.Start()
         {
             nicknameTextField = document.rootVisualElement.Q<TextField>("nickname");
             totalScoreLabel = document.rootVisualElement.Q<Label>("total-score");
