@@ -5,9 +5,8 @@ namespace CardsTable.PlayingCard
 {
     public interface ICardView
     {
-        public event Action OnDragStart;
-        public event Action OnDragStop;
-        public event Action OnDragUpdate;
+        public event Action OnPicked;
+        public event Action OnPlaced;
 
         void FlipCard(bool shouldFaceUp);
         void Show(CardData state);

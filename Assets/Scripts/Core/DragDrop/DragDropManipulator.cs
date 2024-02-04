@@ -1,3 +1,4 @@
+using CardsTable.Core.DragDrop;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -59,8 +60,9 @@ namespace CardsTable.DragDrop
 
             currentDrag = new DragState
             {
+                currentCardPosition = target.transform.position,
                 pickingMode = target.pickingMode,
-                localPickOffset = evt.localPosition,
+                localPickOffset = evt.position,//evt.localPosition,
                 isValid = true
             };
 
@@ -68,6 +70,8 @@ namespace CardsTable.DragDrop
             target.CapturePointer(evt.pointerId);
 
             evt.StopPropagation();
+
+            SendPickEvent(target);
         }
 
         private void OnPointerMove(PointerMoveEvent evt)
@@ -98,16 +102,24 @@ namespace CardsTable.DragDrop
             }
 
             var hasRecever = HasReceiver(evt.position, out var receiver);
-
-            currentDrag = default;
-
-            target.pickingMode = currentDrag.pickingMode;
-            target.ReleasePointer(evt.pointerId);
-
             if (hasRecever)
-                Send(receiver);
+                SendDropEvent(receiver, target);
+
+            SendDropEvent(target, receiver);
+            Reset(evt, hasRecever);
 
             evt.StopPropagation();
+        }
+
+        private void Reset(PointerUpEvent evt, bool hasRecever)
+        {
+            if (!hasRecever)
+                target.transform.position = currentDrag.currentCardPosition;
+
+            target.ReleasePointer(evt.pointerId);
+            target.pickingMode = currentDrag.pickingMode;
+
+            currentDrag = default;
         }
 
         private bool HasReceiver(Vector2 position, out VisualElement receiver)
@@ -128,13 +140,26 @@ namespace CardsTable.DragDrop
             return false;
         }
 
-        private void Send(VisualElement receiver)
+        private void SendPickEvent(VisualElement receiver)
         {
-            var evt = DragDropEvent.GetPooled(this, target);
-            evt.target = receiver;
+            var evt = DragPickEvent.GetPooled(receiver);
 
             // send the event one tick later
-            receiver.schedule.Execute(() => receiver.SendEvent(evt));
+            receiver.schedule.Execute(() => {
+                receiver.SendEvent(evt);
+                evt.Dispose();
+            });
+        }
+        
+        private void SendDropEvent(VisualElement receiver, VisualElement subject)
+        {
+            var evt = DragDropEvent.GetPooled(this, target: receiver, subject: subject);
+
+            // send the event one tick later
+            receiver.schedule.Execute(() => {
+                receiver.SendEvent(evt);
+                evt.Dispose();
+            });
         }
 
         private struct DragState

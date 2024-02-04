@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace CardsTable.PlayingCard
@@ -17,9 +16,8 @@ namespace CardsTable.PlayingCard
 
         void IInitializable.Initialize()
         {
-            view.OnDragStart += OnDragStart;
-            view.OnDragStop += OnDragStop;
-            view.OnDragUpdate += OnDragUpdate;
+            view.OnPicked += OnPicked;
+            view.OnPlaced += OnPlace;
 
             model.OnCardFlipped += view.FlipCard;
             model.OnPositionUpdated += view.SetPosition;
@@ -33,30 +31,20 @@ namespace CardsTable.PlayingCard
 
         void IDisposable.Dispose()
         {
-            view.OnDragStart -= OnDragStart;
-            view.OnDragStop -= OnDragStop;
-            view.OnDragUpdate -= OnDragUpdate;
+            view.OnPicked -= OnPicked;
+            view.OnPlaced -= OnPlace;
 
             model.OnInteractableChanged -= view.SetInteractable;
             model.OnPositionUpdated -= view.SetPosition;
         }
 
-        private void OnDragUpdate()
+        private void OnPlace()
         {
-            Debug.Log("OnDragUpdate");
-        }
-
-        private void OnDragStop()
-        {
-            Debug.Log("OnDragStop");
-
             model.PlaceCard();
         }
 
-        private void OnDragStart()
+        private void OnPicked()
         {
-            Debug.Log("OnDragStart");
-
             model.PickCard();
         }
     }

@@ -25,9 +25,10 @@ namespace CardsTable.DragDrop
             tricklesDown = false;
         }
 
-        public static DragDropEvent GetPooled(DragDropManipulator manipulator, VisualElement subject)
+        public static DragDropEvent GetPooled(DragDropManipulator manipulator, VisualElement target, VisualElement subject)
         {
             var evt = GetPooled();
+            evt.target = target;
             evt.manipulator = manipulator;
             evt.subject = subject;
 

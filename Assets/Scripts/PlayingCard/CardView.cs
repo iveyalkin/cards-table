@@ -1,4 +1,6 @@
 using System;
+using CardsTable.Core.DragDrop;
+using CardsTable.DragDrop;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer.Unity;
@@ -14,11 +16,8 @@ namespace CardsTable.PlayingCard
         private VisualElement colorBackground;
         private VisualElement cover;
 
-        private DragState currentDrag;
-
-        public event Action OnDragStart = delegate { };
-        public event Action OnDragStop = delegate { };
-        public event Action OnDragUpdate = delegate { };
+        public event Action OnPicked = delegate { };
+        public event Action OnPlaced = delegate { };
 
         // todo: figure out the difference and the best source of the position
         private Vector2 Position
@@ -26,22 +25,10 @@ namespace CardsTable.PlayingCard
             get
             {
                 return uiDocument.rootVisualElement.transform.position;
-                
-                // var worldBound = uiDocument.rootVisualElement.worldBound;
-                // return new Vector2(worldBound.x, worldBound.y);
             }
             set
             {
-                if (currentDrag.isValid)
-                {
-                    currentDrag.currentCardPosition = value;
-                }
-
                 uiDocument.rootVisualElement.transform.position = value;
-                
-                // var style = uiDocument.rootVisualElement.style;
-                // style.left = position.x;
-                // style.top = position.y;
             }
         }
 
@@ -57,81 +44,26 @@ namespace CardsTable.PlayingCard
             colorBackground = uiDocument.rootVisualElement.Q<VisualElement>("color");
             cover = uiDocument.rootVisualElement.Q<VisualElement>("cover");
 
-            SetupDragAndDrop(uiDocument.rootVisualElement);
+            uiDocument.rootVisualElement.RegisterCallback<DragDropEvent>(OnDrop);
+            uiDocument.rootVisualElement.RegisterCallback<DragPickEvent>(OnPick);
         }
 
         void IDisposable.Dispose()
         {
-            ReleaseDragAndDrop(uiDocument.rootVisualElement);
+            uiDocument.rootVisualElement.UnregisterCallback<DragDropEvent>(OnDrop);
+            uiDocument.rootVisualElement.UnregisterCallback<DragPickEvent>(OnPick);
         }
 
-        private void ReleaseDragAndDrop(VisualElement card)
+        private void OnPick(DragPickEvent evt)
         {
-            // aid editor workflow
-            if (card == null)
-            {
-                return;
-            }
-
-            card.UnregisterCallback<PointerDownEvent>(OnPointerDown);
-            card.UnregisterCallback<PointerMoveEvent>(OnPointerMove);
-            card.UnregisterCallback<PointerUpEvent>(OnPointerUp);
+            OnPicked();
+            Debug.Log("Picked");
         }
 
-        private void SetupDragAndDrop(VisualElement card)
+        private void OnDrop(DragDropEvent evt)
         {
-            uiDocument.rootVisualElement.style.position = UnityEngine.UIElements.Position.Absolute;
-
-            card.RegisterCallback<PointerDownEvent>(OnPointerDown);
-            card.RegisterCallback<PointerMoveEvent>(OnPointerMove);
-            card.RegisterCallback<PointerUpEvent>(OnPointerUp);
-        }
-
-        private void OnPointerUp(PointerUpEvent evt)
-        {
-            // Debug.Log("OnPointerUp");
-
-            currentDrag = new DragState();
-
-            uiDocument.rootVisualElement.ReleasePointer(evt.pointerId);
-
-            OnDragStop();
-        }
-
-        private void OnPointerMove(PointerMoveEvent evt)
-        {
-            // Debug.Log($"OnPointerMove");
-
-            if (!currentDrag.isValid || !uiDocument.rootVisualElement.HasPointerCapture(evt.pointerId))
-            {
-                return;
-            }
-
-            var pointerPosition = (Vector2) evt.position;
-            var delta = pointerPosition - currentDrag.originalPointerPosition;
-
-            currentDrag.originalPointerPosition = pointerPosition;
-
-            SetPosition(currentDrag.currentCardPosition + delta);
-
-            OnDragUpdate();
-        }
-
-        private void OnPointerDown(PointerDownEvent evt)
-        {
-            // Debug.Log("OnPointerDown");
-
-            var card = uiDocument.rootVisualElement;
-            card.CapturePointer(evt.pointerId);
-            card.BringToFront();
-
-            currentDrag = new DragState {
-                originalPointerPosition = evt.position,
-                currentCardPosition = Position,
-                isValid = true,
-            };
-
-            OnDragStart();
+            OnPlaced();
+            Debug.Log("Dropped");
         }
 
         public void Show(CardData state)
@@ -153,13 +85,6 @@ namespace CardsTable.PlayingCard
         public void SetInteractable(bool isInteractable)
         {
             uiDocument.rootVisualElement.SetEnabled(isInteractable);
-        }
-
-        private struct DragState
-        {
-            public Vector2 originalPointerPosition;
-            public Vector2 currentCardPosition;
-            public bool isValid;
         }
     }
 }
