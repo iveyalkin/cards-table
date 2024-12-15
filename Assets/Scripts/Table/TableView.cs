@@ -9,7 +9,7 @@ using VContainer.Unity;
 
 namespace CardsTable.Table
 {
-    public class TableView : IStartable, IDisposable
+    public class TableView : IInitializable, IDisposable
     {
         private readonly UIDocument document;
 
@@ -18,7 +18,7 @@ namespace CardsTable.Table
             this.document = document;
         }
 
-        void IStartable.Start()
+        void IInitializable.Initialize()
         {
             
         }

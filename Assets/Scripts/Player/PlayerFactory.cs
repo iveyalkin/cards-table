@@ -20,7 +20,7 @@ namespace CardsTable.Player
         {
             var context = lifetimeScope.CreateChildFromPrefab(handSettings.PlayerPrefab,
                 builder => builder.RegisterInstance(userStateData.playerState));
-
+            context.Build();
             return context.Container.Resolve<PlayerModel>();
         }
     }

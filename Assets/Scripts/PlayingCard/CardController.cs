@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace CardsTable.PlayingCard
 {
-    public class CardController : IInitializable, IStartable, IDisposable
+    public class CardController : IPostInitializable, IStartable, IDisposable
     {
         private readonly CardModel model;
         private readonly ICardView view;
@@ -14,7 +14,7 @@ namespace CardsTable.PlayingCard
             this.view = view;
         }
 
-        void IInitializable.Initialize()
+        void IPostInitializable.PostInitialize()
         {
             view.OnPicked += OnPicked;
             view.OnPlaced += OnPlace;
@@ -26,6 +26,7 @@ namespace CardsTable.PlayingCard
         void IStartable.Start()
         {
             model.OnInteractableChanged += view.SetInteractable;
+
             view.Show(model.Data);
         }
 

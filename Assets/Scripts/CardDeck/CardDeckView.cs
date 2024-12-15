@@ -5,7 +5,7 @@ using VContainer.Unity;
 
 namespace CardsTable.CardDeck
 {
-    public class CardDeckView : IStartable, IDisposable
+    public class CardDeckView : IInitializable, IDisposable
     {
         private readonly UIDocument uiDocument;
 
@@ -18,7 +18,7 @@ namespace CardsTable.CardDeck
             this.uiDocument = uiDocument;
         }
 
-        void IStartable.Start()
+        void IInitializable.Initialize()
         {
             drawButton = uiDocument.rootVisualElement.Q<Button>("draw");
             

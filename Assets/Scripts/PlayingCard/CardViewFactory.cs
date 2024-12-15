@@ -18,6 +18,7 @@ namespace CardsTable.PlayingCard
         public CardModel Create(CardData data)
         {
             var context = lifetimeScope.CreateChildFromPrefab(deckSettings.CardPrefab, (builder) => builder.RegisterInstance(data));
+            context.Build();
             return context.Container.Resolve<CardModel>();
         }
     }

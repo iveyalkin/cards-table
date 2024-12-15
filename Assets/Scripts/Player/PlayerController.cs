@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace CardsTable.Player
 {
-    public class PlayerController: IInitializable, IDisposable
+    public class PlayerController: IPostInitializable, IDisposable
     {
         private readonly PlayerModel model;
 
@@ -13,7 +13,7 @@ namespace CardsTable.Player
             this.model = model;
         }
 
-        void IInitializable.Initialize()
+        void IPostInitializable.PostInitialize()
         {
             model.OnPlayerTurn += PlayTurn;
         }

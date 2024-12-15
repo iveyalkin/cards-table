@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace CardsTable.UI.TableUI
 {
-    public class TableUIView : IStartable
+    public class TableUIView : IInitializable
     {
         private readonly UIDocument document;
 
@@ -43,7 +43,7 @@ namespace CardsTable.UI.TableUI
             this.document = document;
         }
 
-        void IStartable.Start()
+        void IInitializable.Initialize()
         {
             openPauseMenuButton = document.rootVisualElement.Q<Button>("open-pause-menu");
             pauseMenu = document.rootVisualElement.Q<VisualElement>("pause-menu");

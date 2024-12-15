@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace CardsTable.UI.MainMenu
 {
-    public class MainMenuController : IInitializable, IStartable, IDisposable
+    public class MainMenuController : IPostInitializable, IStartable, IDisposable
     {
         private readonly MainMenuView view;
         private readonly UserStateRepository playerStateRepository;
@@ -20,7 +20,9 @@ namespace CardsTable.UI.MainMenu
             this.gameplayModeLoader = gameplayModeLoader;
         }
 
-        void IInitializable.Initialize()
+        // So IInitializable.Initialize is to initiliaze {view} state
+        // IPostInitializable.PostInitialize to access whatever is part of initialized {view} state
+        void IPostInitializable.PostInitialize()
         {
             view.OnChooseGameModeButtonClicked += OnChooseGameModeButtonClicked;
             gameplayModeLoader.OnGameplayModeUnloaded += OnGameplayModeUnloaded;

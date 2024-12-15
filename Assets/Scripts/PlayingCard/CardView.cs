@@ -7,7 +7,7 @@ using VContainer.Unity;
 
 namespace CardsTable.PlayingCard
 {
-    public class CardView : ICardView, IStartable, IDisposable
+    public class CardView : ICardView, IInitializable, IDisposable
     {
         private UIDocument uiDocument;
 
@@ -37,7 +37,7 @@ namespace CardsTable.PlayingCard
             this.uiDocument = uiDocument;
         }
 
-        void IStartable.Start()
+        void IInitializable.Initialize()
         {
             rankLabel = uiDocument.rootVisualElement.Q<Label>("rank");
             suitImage = uiDocument.rootVisualElement.Q<VisualElement>("suit");

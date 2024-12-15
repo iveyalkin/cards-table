@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace CardsTable.UI.TableUI
 {
-    public class TableUIController : IInitializable, IDisposable
+    public class TableUIController : IPostInitializable, IDisposable
     {
         private readonly TableUIView view;
         private readonly GameplayModeLoader gameplayModeLoader;
@@ -15,7 +15,7 @@ namespace CardsTable.UI.TableUI
             this.gameplayModeLoader = gameplayModeLoader;
         }
 
-        void IInitializable.Initialize()
+        void IPostInitializable.PostInitialize()
         {
             view.OnOpenPauseMenu += OpenPauseMenu;
             view.OnClosePauseMenu += ClosePauseMenu;

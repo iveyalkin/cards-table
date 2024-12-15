@@ -7,7 +7,7 @@ using VContainer.Unity;
 
 namespace CardsTable.Player.Hand
 {
-    public class HandView : IStartable, IDisposable
+    public class HandView : IInitializable, IDisposable
     {
         private readonly UIDocument uiDocument;
 
@@ -22,7 +22,7 @@ namespace CardsTable.Player.Hand
             this.uiDocument = uiDocument;
         }
 
-        void IStartable.Start()
+        void IInitializable.Initialize()
         {
             cardSlots = uiDocument.rootVisualElement.Query<VisualElement>(className: "card-slot")
                 .ToList();

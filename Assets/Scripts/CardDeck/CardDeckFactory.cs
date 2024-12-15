@@ -18,6 +18,7 @@ namespace CardsTable.CardDeck
         public CardDeckModel Create()
         {
             var context = lifetimeScope.CreateChildFromPrefab(deckSettings.CardDeckPrefab);
+            context.Build();
             return context.Container.Resolve<CardDeckModel>();
         }
     }

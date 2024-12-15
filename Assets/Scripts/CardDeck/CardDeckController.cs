@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace CardsTable.CardDeck
 {
-    public class CardDeckController : IInitializable, IDisposable
+    public class CardDeckController : IPostInitializable, IDisposable
     {
         private readonly CardDeckView view;
         private readonly CardDeckModel model;
@@ -14,7 +14,7 @@ namespace CardsTable.CardDeck
             this.model = model;;
         }
 
-        void IInitializable.Initialize()
+        void IPostInitializable.PostInitialize()
         {
             view.OnDrawClick += OnDrawCard;
         }

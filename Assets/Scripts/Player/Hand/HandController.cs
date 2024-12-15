@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace CardsTable.Player.Hand
 {
-    public class HandController : IInitializable, IStartable, IDisposable
+    public class HandController : IPostInitializable, IStartable, IDisposable
     {
         private readonly HandView view;
         private readonly HandModel model;
@@ -17,7 +17,7 @@ namespace CardsTable.Player.Hand
             this.cardFactory = cardFactory;
         }
 
-        void IInitializable.Initialize()
+        void IPostInitializable.PostInitialize()
         {
             model.OnCardAdded += OnCardAdded;
             model.OnCardRemoved += OnCardRemoved;

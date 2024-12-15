@@ -5,7 +5,7 @@ using CardsTable.UserState;
 
 namespace CardsTable.UI.MainMenu
 {
-    public class MainMenuView: IStartable
+    public class MainMenuView : IInitializable
     {
         private readonly UIDocument document;
 
@@ -26,7 +26,10 @@ namespace CardsTable.UI.MainMenu
             this.document = document;
         }
 
-        void IStartable.Start()
+        // it's OK to use IInitializable.Initialize instead of MonoBehaviour.Start for access to rootVisualElement
+        // see diagram https://vcontainer.hadashikick.jp/integrations/entrypoint (called after OnEnable)
+        // see lifecycle https://docs.unity3d.com/Manual/UIE-create-ui-document-component.html
+        void IInitializable.Initialize()
         {
             nicknameTextField = document.rootVisualElement.Q<TextField>("nickname");
             totalScoreLabel = document.rootVisualElement.Q<Label>("total-score");
@@ -40,7 +43,8 @@ namespace CardsTable.UI.MainMenu
             document.rootVisualElement.style.display = DisplayStyle.Flex;
 
             nicknameTextField.value = playerStateData.playerState.gameId;
-            totalScoreLabel.text = $"{playerStateData.playerState.score}"; // todo: use formatter to represent it like 2kk
+            totalScoreLabel.text =
+                $"{playerStateData.playerState.score}"; // todo: use formatter to represent it like 2kk
             muteSfxToggle.value = playerStateData.isSfxMuted;
             muteAmbientToggle.value = playerStateData.isAmbientMuted;
         }
